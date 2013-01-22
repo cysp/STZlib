@@ -8,10 +8,12 @@
 #import <Foundation/Foundation.h>
 
 
-@interface STZlib : NSObject
+@interface STZlib : NSObject {
+}
+
+#pragma mark - Deflate
 
 + (NSData *)dataByDeflatingData:(NSData *)data;
-
 + (NSData *)dataByInflatingData:(NSData *)data;
 
 @end

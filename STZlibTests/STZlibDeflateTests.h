@@ -8,6 +8,6 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface STZlibTests : SenTestCase
+@interface STZlibDeflateTests : SenTestCase
 
 @end

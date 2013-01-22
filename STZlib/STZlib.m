@@ -10,7 +10,10 @@
 #import <zlib.h>
 
 
-@implementation STZlib
+@implementation STZlib {
+}
+
+#pragma mark - Deflate
 
 + (NSData *)dataByDeflatingData:(NSData *)data {
 	z_stream strm = { 0 };
