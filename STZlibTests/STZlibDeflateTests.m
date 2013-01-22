@@ -57,7 +57,7 @@
 		NSData * const output = [STZlib dataByDeflatingData:input];
 
 		STAssertEqualObjects(output, expected, @"", nil);
-	}	
+	}
 }
 
 
