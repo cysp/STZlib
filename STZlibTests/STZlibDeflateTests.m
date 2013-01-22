@@ -25,9 +25,42 @@
 	}
 
 	{
+		uint8_t const inputBytes[1] = { 0 };
+		NSData * const input = [NSData dataWithBytesNoCopy:(void *)inputBytes length:sizeof(inputBytes) freeWhenDone:NO];
+		uint8_t const expectedBytes[] = { 0x63, 0x00, 0x00 };
+		NSData * const expected = [NSData dataWithBytesNoCopy:(void *)expectedBytes length:sizeof(expectedBytes) freeWhenDone:NO];
+
+		NSData * const output = [STZlib dataByDeflatingData:input];
+
+		STAssertEqualObjects(output, expected, @"", nil);
+	}
+
+	{
 		uint8_t const inputBytes[] = { 0x30 };
 		NSData * const input = [NSData dataWithBytesNoCopy:(void *)inputBytes length:sizeof(inputBytes) freeWhenDone:NO];
 		uint8_t const expectedBytes[] = { 0x33, 0x00, 0x00 };
+		NSData * const expected = [NSData dataWithBytesNoCopy:(void *)expectedBytes length:sizeof(expectedBytes) freeWhenDone:NO];
+
+		NSData * const output = [STZlib dataByDeflatingData:input];
+
+		STAssertEqualObjects(output, expected, @"", nil);
+	}
+
+	{
+		uint8_t const inputBytes[32] = { 0 };
+		NSData * const input = [NSData dataWithBytesNoCopy:(void *)inputBytes length:sizeof(inputBytes) freeWhenDone:NO];
+		uint8_t const expectedBytes[] = { 0x63, 0x60, 0xc0, 0x0f, 0x00 };
+		NSData * const expected = [NSData dataWithBytesNoCopy:(void *)expectedBytes length:sizeof(expectedBytes) freeWhenDone:NO];
+
+		NSData * const output = [STZlib dataByDeflatingData:input];
+
+		STAssertEqualObjects(output, expected, @"", nil);
+	}
+
+	{
+		uint8_t const inputBytes[64] = { 0 };
+		NSData * const input = [NSData dataWithBytesNoCopy:(void *)inputBytes length:sizeof(inputBytes) freeWhenDone:NO];
+		uint8_t const expectedBytes[] = { 0x63, 0x60, 0xa0, 0x0c, 0x00, 0x00 };
 		NSData * const expected = [NSData dataWithBytesNoCopy:(void *)expectedBytes length:sizeof(expectedBytes) freeWhenDone:NO];
 
 		NSData * const output = [STZlib dataByDeflatingData:input];
