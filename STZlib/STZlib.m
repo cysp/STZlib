@@ -42,26 +42,10 @@
 
 			strm.next_out = buffer;
 			strm.avail_out = bufferSize;
-			if (strm.avail_in == 0) {
-				break;
-			}
-			int status = deflate(&strm, Z_NO_FLUSH);
-			if (status == Z_OK || status == Z_STREAM_END || status == Z_BUF_ERROR) {
-				NSUInteger const producedLength = strm.total_out - outputProduced;
-				if (producedLength) {
-					[output appendBytes:buffer length:producedLength];
-					outputProduced += producedLength;
-				}
-			}
-		} while (status == Z_OK || status == Z_BUF_ERROR);
-	}
 
-	{
-		int status = Z_OK;
-		do {
-			strm.next_out = buffer;
-			strm.avail_out = bufferSize;
-			status = deflate(&strm, Z_FINISH);
+			int const flush = strm.avail_in > 0 ? Z_NO_FLUSH : Z_FINISH;
+
+			status = deflate(&strm, flush);
 			if (status == Z_OK || status == Z_STREAM_END || status == Z_BUF_ERROR) {
 				NSUInteger const producedLength = strm.total_out - outputProduced;
 				if (producedLength) {
@@ -70,6 +54,7 @@
 				}
 			}
 		} while (status == Z_OK || status == Z_BUF_ERROR);
+
 		if (status != Z_STREAM_END) {
 			return nil;
 		}
@@ -113,26 +98,10 @@
 
 			strm.next_out = buffer;
 			strm.avail_out = bufferSize;
-			if (strm.avail_in == 0) {
-				break;
-			}
-			int status = inflate(&strm, Z_NO_FLUSH);
-			if (status == Z_OK || status == Z_STREAM_END || status == Z_BUF_ERROR) {
-				NSUInteger const producedLength = strm.total_out - outputProduced;
-				if (producedLength) {
-					[output appendBytes:buffer length:producedLength];
-					outputProduced += producedLength;
-				}
-			}
-		} while (status == Z_OK || status == Z_BUF_ERROR);
-	}
 
-	{
-		int status = Z_OK;
-		do {
-			strm.next_out = buffer;
-			strm.avail_out = bufferSize;
-			status = inflate(&strm, Z_FINISH);
+			int const flush = strm.avail_in > 0 ? Z_NO_FLUSH : Z_FINISH;
+
+			status = inflate(&strm, flush);
 			if (status == Z_OK || status == Z_STREAM_END || status == Z_BUF_ERROR) {
 				NSUInteger const producedLength = strm.total_out - outputProduced;
 				if (producedLength) {
@@ -141,6 +110,7 @@
 				}
 			}
 		} while (status == Z_OK || status == Z_BUF_ERROR);
+
 		if (status != Z_STREAM_END) {
 			return nil;
 		}
