@@ -12,6 +12,6 @@
 
 + (NSData *)dataByDeflatingData:(NSData *)data;
 
-+ (NSData *)dataByInflatingData:(NSData *)data error:(NSError * __autoreleasing *)error;
++ (NSData *)dataByInflatingData:(NSData *)data;
 
 @end
