@@ -16,9 +16,25 @@
 #pragma mark - Deflate
 
 + (NSData *)dataByDeflatingData:(NSData *)data {
+	return [self dataByDeflatingData:data withMode:STZlibDeflateModeRaw];
+}
+
++ (NSData *)dataByDeflatingData:(NSData *)data withMode:(STZlibDeflateMode)deflateMode {
 	z_stream strm = { 0 };
 	{
-		int status = deflateInit2(&strm, Z_DEFAULT_COMPRESSION, Z_DEFLATED, -15, 8, Z_DEFAULT_STRATEGY);
+		int windowBits = 15;
+		switch (deflateMode) {
+			case STZlibDeflateModeRaw:
+			default:
+				windowBits = -windowBits;
+				break;
+			case STZlibDeflateModeZlib:
+				break;
+			case STZlibDeflateModeGzip:
+				windowBits += 16;
+				break;
+		}
+		int status = deflateInit2(&strm, Z_DEFAULT_COMPRESSION, Z_DEFLATED, windowBits, 8, Z_DEFAULT_STRATEGY);
 		if (status != Z_OK) {
 			return nil;
 		}
@@ -72,9 +88,25 @@
 
 
 + (NSData *)dataByInflatingData:(NSData *)data {
+	return [self dataByInflatingData:data withMode:STZlibDeflateModeRaw];
+}
+
++ (NSData *)dataByInflatingData:(NSData *)data withMode:(STZlibDeflateMode)deflateMode {
 	z_stream strm = { 0 };
 	{
-		int status = inflateInit2(&strm, -15);
+		int windowBits = 15;
+		switch (deflateMode) {
+			case STZlibDeflateModeRaw:
+			default:
+				windowBits = -windowBits;
+				break;
+			case STZlibDeflateModeZlib:
+				break;
+			case STZlibDeflateModeGzip:
+				windowBits += 16;
+				break;
+		}
+		int status = inflateInit2(&strm, windowBits);
 		if (status != Z_OK) {
 			return nil;
 		}
