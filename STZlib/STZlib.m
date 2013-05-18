@@ -54,7 +54,7 @@
 		strm.next_in = (unsigned char *)inputBytes;
 		do {
 			NSUInteger const inputRemaining = inputLength - strm.total_in;
-			strm.avail_in = MIN(bufferSize, inputRemaining);
+			strm.avail_in = (uInt)MIN(bufferSize, inputRemaining);
 
 			strm.next_out = buffer;
 			strm.avail_out = bufferSize;
@@ -126,7 +126,7 @@
 		strm.next_in = (unsigned char *)inputBytes;
 		do {
 			NSUInteger const inputRemaining = inputLength - strm.total_in;
-			strm.avail_in = MIN(bufferSize, inputRemaining);
+			strm.avail_in = (uInt)MIN(bufferSize, inputRemaining);
 
 			strm.next_out = buffer;
 			strm.avail_out = bufferSize;
