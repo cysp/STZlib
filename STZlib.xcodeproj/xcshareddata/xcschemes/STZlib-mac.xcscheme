@@ -20,6 +20,20 @@
                ReferencedContainer = "container:STZlib.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "2CCF484417472C1600BBE8A2"
+               BuildableName = "STZlibTests.octest"
+               BlueprintName = "STZlibTests-mac"
+               ReferencedContainer = "container:STZlib.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
